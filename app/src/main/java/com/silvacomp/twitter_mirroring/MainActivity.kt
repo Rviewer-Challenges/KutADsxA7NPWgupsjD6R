@@ -3,41 +3,43 @@ package com.silvacomp.twitter_mirroring
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.silvacomp.twitter_mirroring.ui.theme.TwittermirroringTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.navigation.compose.rememberNavController
+import com.silvacomp.twitter_mirroring.ui.components.*
+import com.silvacomp.twitter_mirroring.ui.theme.TwitterMirroringTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            TwittermirroringTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+            TwitterMirroringTheme {
+                val navController = rememberNavController()
+                val scaffoldState = rememberScaffoldState()
+                val scope = rememberCoroutineScope()
+                Scaffold(
+                    scaffoldState = scaffoldState,
+                    topBar = {
+                        TwitterTopAppBar(
+                            navController = navController,
+                            onNavigationOnClick = {
+                                scope.launch {
+                                    scaffoldState.drawerState.open()
+                                }
+                            }
+                        ) },
+                    drawerContent = {
+                        DrawerHeader()
+                        DrawerBody()
+                    },
+                    bottomBar = { TwitterBottomBar(navController = navController) }
                 ) {
-                    Greeting("Android")
+                    NavigationGraph(navController = navController)
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    TwittermirroringTheme {
-        Greeting("Android")
-    }
-}
