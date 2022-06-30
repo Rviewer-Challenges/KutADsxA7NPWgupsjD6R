@@ -67,8 +67,13 @@ dependencies {
     //coil
     implementation "io.coil-kt:coil-compose:2.1.0"
     implementation "io.coil-kt:coil-gif:2.1.0"
-    
+
     //splashScreen
     implementation "androidx.core:core-splashscreen:1.0.0-rc01"
+
+    //lottie
+    implementation "com.airbnb.android:lottie-compose:5.2.0"
+
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.24.12-rc"
 
 }

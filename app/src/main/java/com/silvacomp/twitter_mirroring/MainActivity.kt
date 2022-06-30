@@ -29,7 +29,11 @@ class MainActivity : ComponentActivity() {
                                     scaffoldState.drawerState.open()
                                 }
                             }
-                        ) },
+                        )
+                    },
+                    floatingActionButton = {
+                        TwitterFloatingActionButton()
+                    },
                     drawerContent = {
                         DrawerHeader()
                         DrawerBody()
